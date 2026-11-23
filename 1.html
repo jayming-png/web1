@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>事與作 ASSIDUOUS DESIGN</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ebe6dd;--bg2:#ddd5c8;--ink:#2a2724;--mute:#6f675d;--line:#c4bbab;--earth:#8b7a65;--sage:#868568;--card:#f3efe8;
+--sans:"Noto Sans TC",system-ui,sans-serif;--serif:"Cormorant Garamond","Noto Serif TC",Georgia,serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1f1d1a;--bg2:#2a2723;--ink:#ebe6dd;--mute:#a79e91;--line:#433e37;--earth:#a8957c;--sage:#9a9979;--card:#262320;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1f1d1a;--bg2:#2a2723;--ink:#ebe6dd;--mute:#a79e91;--line:#433e37;--earth:#a8957c;--sage:#9a9979;--card:#262320;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+body{background:var(--bg);color:var(--ink);font:300 16px/1.9 var(--sans);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--earth);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+section{padding:140px 0}
+h2{font:400 clamp(30px,4.4vw,52px)/1.25 var(--serif);letter-spacing:.04em}
+.en{font-family:var(--serif);font-style:italic;color:var(--earth)}
+header{position:fixed;top:0;left:0;right:0;z-index:20;padding:calc(18px + env(safe-area-inset-top,0px)) 28px 18px;display:flex;justify-content:space-between;align-items:center;color:#f4efe6;transition:background .4s,color .4s}
+header.solid{background:var(--bg);color:var(--ink);border-bottom:1px solid var(--line)}
+.logo{font:500 22px var(--serif);letter-spacing:.12em}
+.logo small{font:300 12px var(--sans);letter-spacing:.3em;margin-left:12px}
+nav{display:flex;gap:40px;font-size:14px;letter-spacing:.2em}
+nav a:hover{color:var(--earth)}
+.burger{display:none;background:none;border:0;color:inherit;width:40px;height:40px;cursor:pointer}
+.burger span{display:block;width:24px;height:1px;background:currentColor;margin:7px auto;transition:.3s}
+.hero{height:100svh;min-height:560px;position:relative;overflow:hidden;color:#f4efe6;display:flex;align-items:flex-end;padding:0}
+.hero-bg{position:absolute;inset:-10% 0;background:
+linear-gradient(180deg,rgba(30,26,22,.25),rgba(30,26,22,.65)),
+linear-gradient(90deg,transparent 58%,rgba(235,222,200,.22) 58% 59%,transparent 59%),
+linear-gradient(120deg,#6f6150 0 38%,#9a8a74 38% 62%,#b9ab94 62%);will-change:transform}
+.hero-bg::before{content:"";position:absolute;left:12%;bottom:22%;width:34%;height:30%;background:#3b332b;border-radius:2px;box-shadow:0 40px 0 -10px #2a241e}
+.hero-bg::after{content:"";position:absolute;right:10%;top:20%;width:18%;height:48%;background:linear-gradient(180deg,#e8dcc4,#c9b99c);opacity:.7}
+.hero .wrap{position:relative;width:100%;padding-bottom:9vh}
+.hero h1{font:400 clamp(44px,10.5vw,150px)/.95 var(--serif);letter-spacing:.02em;animation:rise 1.6s cubic-bezier(.2,.7,.2,1) both}
+.hero p{margin-top:24px;font-size:14px;letter-spacing:.35em}
+@keyframes rise{from{opacity:0;transform:translateY(40px)}}
+.about{display:grid;grid-template-columns:1fr 1.1fr;gap:90px;align-items:start}
+.about .names{font:400 clamp(60px,9vw,120px)/1.05 var(--serif);color:var(--earth)}
+.about .names span{display:block}
+.about .names em{font:italic 400 .28em var(--serif);color:var(--mute);display:block;letter-spacing:.08em;margin-top:8px}
+.about p{margin-top:26px;color:var(--mute);max-width:34em}
+.about p strong{color:var(--ink);font-weight:500}
+.quote{font:400 clamp(22px,2.6vw,32px)/1.7 var(--serif);max-width:20em}
+.works-head{display:flex;justify-content:space-between;align-items:end;gap:40px;flex-wrap:wrap;margin-bottom:56px}
+.works-head p{color:var(--mute);max-width:26em}
+.filters{display:flex;gap:8px;margin-bottom:40px}
+.filters button{font:400 14px var(--sans);letter-spacing:.2em;padding:8px 22px;border:1px solid var(--line);background:none;color:var(--mute);cursor:pointer;border-radius:999px}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.work{cursor:pointer;background:none;border:0;text-align:left;color:inherit;font:inherit;padding:0}
+.work[hidden]{display:none}
+.ph{aspect-ratio:4/5;position:relative;overflow:hidden;background:var(--c1)}
+.ph::before{content:"";position:absolute;left:0;right:0;bottom:0;height:38%;background:var(--c2)}
+.ph::after{content:"";position:absolute;left:var(--x,18%);bottom:28%;width:34%;height:24%;background:var(--c3);transition:transform .7s}
+.work:hover .ph::after{transform:translateY(-10px)}
+.work h3{font:500 22px var(--serif);letter-spacing:.1em;margin-top:16px}
+.work span{font-size:13px;color:var(--mute);letter-spacing:.12em}
+dialog{border:0;padding:0;max-width:880px;width:calc(100% - 40px);background:var(--card);color:var(--ink);margin:auto}
+dialog::backdrop{background:rgba(25,22,19,.7)}
+dialog .ph{aspect-ratio:16/8}
+.dlg-body{padding:36px 40px 44px}
+.dlg-body h3{font:400 34px var(--serif);letter-spacing:.08em}
+.dlg-body p{color:var(--mute);margin-top:10px}
+.dlg-body dl{display:flex;gap:40px;margin-top:20px;font-size:14px}
+.dlg-body dt{color:var(--earth)}
+.dlg-body dd{margin:0}
+.close{position:absolute;top:12px;right:14px;background:var(--bg);border:0;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:20px;color:var(--ink)}
+.flow{background:var(--bg2)}
+.steps{list-style:none;padding:0;margin-top:70px;display:grid;grid-template-columns:repeat(3,1fr);gap:56px 28px;position:relative}
+.steps li{background:var(--card);padding:32px 28px;border-top:2px solid var(--earth)}
+.steps b{font:italic 400 34px var(--serif);color:var(--earth);display:block}
+.steps h3{font-weight:500;font-size:18px;margin:6px 0 8px}
+.steps p{font-size:14px;color:var(--mute);line-height:1.8}
+.steps li:last-child{border-color:var(--sage)}
+.tcards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:64px}
+figure{padding:36px 30px;border:1px solid var(--line)}
+blockquote{font:400 19px/1.9 "Noto Serif TC",var(--serif)}
+figcaption{margin-top:22px;font-size:13px;color:var(--mute);letter-spacing:.12em}
+.contact{background:var(--ink);color:var(--bg)}
+.contact h2{color:var(--bg)}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:90px}
+.cinfo p{margin-top:18px;opacity:.75}
+.cinfo a{display:block;font:400 26px var(--serif);margin-top:12px;letter-spacing:.06em}
+form{display:grid;gap:22px}
+label{font-size:13px;letter-spacing:.15em;display:grid;gap:6px;opacity:.9}
+input,select,textarea{font:300 16px var(--sans);background:transparent;color:inherit;border:0;border-bottom:1px solid rgba(235,230,221,.4);padding:8px 0;border-radius:0}
+select option{color:#2a2724}
+textarea{min-height:90px;resize:vertical}
+.btn{font:400 15px var(--sans);letter-spacing:.3em;background:var(--bg);color:var(--ink);border:0;padding:16px;cursor:pointer}
+.btn:hover{background:var(--earth);color:#fff}
+#ok{min-height:1.6em;font-size:14px;color:#d9cfb8}
+footer{background:var(--ink);color:var(--bg);padding:30px 0 40px;border-top:1px solid rgba(235,230,221,.15);font-size:13px;opacity:.9}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+footer a{margin-left:24px}
+@media (max-width:860px){
+section{padding:90px 0}
+.burger{display:block}
+nav{position:fixed;inset:0;background:var(--bg);color:var(--ink);flex-direction:column;justify-content:center;align-items:center;font-size:22px;transform:translateY(-100%);transition:transform .5s}
+nav.open{transform:none}
+header.menu{color:var(--ink)}
+.about,.cgrid{grid-template-columns:1fr;gap:48px}
+.grid,.steps,.tcards{grid-template-columns:1fr}
+.grid{gap:36px}
+.dlg-body{padding:26px 22px 32px}
+}
+@media (min-width:861px) and (max-width:1020px){.grid,.tcards{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(2,1fr)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header id="top">
+  <a class="logo" href="#hero" aria-label="事與作 首頁">AD<small>事與作</small></a>
+  <button class="burger" aria-label="開啟選單" aria-expanded="false"><span></span><span></span></button>
+  <nav id="nav" aria-label="主選單">
+    <a href="#works">專案</a><a href="#awards">獎項</a><a href="#contact">聯絡</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="hero" aria-label="首屏">
+  <div class="hero-bg" role="img" aria-label="室內空間示意"></div>
+  <div class="wrap">
+    <h1>ASSIDUOUS<br>DESIGN</h1>
+    <p>事與作　室內設計</p>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about">
+    <div class="names"><span>事</span><span>與作</span><em>Assiduous — diligent, attentive, unhurried</em></div>
+    <div>
+      <p class="quote">事，是生活裡每一件被好好對待的小事；作，是把它們一件件做到位的手。</p>
+      <p><strong>事</strong>代表我們傾聽的內容：您如何起床、煮飯、待客、獨處。<strong>作</strong>代表我們動手的方式：從圖面到工地，每個細節都親自確認。</p>
+      <p>我們相信好的空間不必喧嘩。它以光線、材質與比例，讓人安心住下來。</p>
+    </div>
+  </div>
+</section>
+
+<section id="works" style="padding-top:0">
+  <div class="wrap">
+    <div class="works-head">
+      <h2>精選作品</h2>
+      <p>每個案子都從一份生活清單開始。以下是近年完成的住宅與商業空間。</p>
+    </div>
+    <div class="filters" role="group" aria-label="作品分類">
+      <button aria-pressed="true" data-f="all">全部</button>
+      <button aria-pressed="false" data-f="home">住宅</button>
+      <button aria-pressed="false" data-f="biz">商空</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section id="awards" style="padding:0 0 140px">
+  <div class="wrap" style="border-top:1px solid var(--line);padding-top:48px;display:flex;gap:48px;flex-wrap:wrap;justify-content:space-between">
+    <h2 style="font-size:28px">獎項與肯定</h2>
+    <p style="color:var(--mute);max-width:36em">獎項紀錄將於此更新。歡迎來信索取完整作品集與獲獎資料。</p>
+  </div>
+</section>
+
+<section class="flow" id="workflow">
+  <div class="wrap">
+    <h2>設計流程</h2>
+    <ol class="steps">
+      <li><b>1</b><h3>初次諮詢與提案</h3><p>了解預算、生活習慣與喜好，提出空間規劃與初步設計方向。</p></li>
+      <li><b>2</b><h3>丈量與細部設計</h3><p>現場丈量，繪製平面、立面與材質樣板，與您逐項確認。</p></li>
+      <li><b>3</b><h3>報價與簽訂合約</h3><p>工項、單價與時程完整列明，雙方確認後簽約。</p></li>
+      <li><b>4</b><h3>工程施作</h3><p>設計師定期到場監工，進度與變更皆即時回報。</p></li>
+      <li><b>5</b><h3>驗收與完工</h3><p>逐項檢查細節，缺失立即修正，交屋前完成清潔。</p></li>
+      <li><b>6</b><h3>保固與長期諮詢</h3><p>完工後提供一年保固，並終身提供居住與維護諮詢。</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="voices">
+  <div class="wrap">
+    <h2>客戶回饋</h2>
+    <div class="tcards">
+      <figure><blockquote>設計師很有耐心，我們反覆修改了好幾次，每次都願意重新討論，沒有一絲不耐煩。</blockquote><figcaption>陳先生　住宅</figcaption></figure>
+      <figure><blockquote>燈光層次是最驚喜的部分。白天柔和，晚上有溫度，回到家整個人就放鬆了。</blockquote><figcaption>賴小姐　住宅</figcaption></figure>
+      <figure><blockquote>完工後和 3D 圖幾乎一模一樣，細節也都有照做，工班進度也很準時。</blockquote><figcaption>林小姐　商業空間</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap cgrid">
+    <div class="cinfo">
+      <h2>預約諮詢</h2>
+      <p>告訴我們您的空間與想法，我們會在兩個工作天內回覆。</p>
+      <a href="tel:+886000000000">06-000-0000</a>
+      <a href="mailto:hello@example.com">hello@example.com</a>
+    </div>
+    <form id="form" novalidate>
+      <label>姓名<input name="n" required autocomplete="name"></label>
+      <label>電話或 Email<input name="c" required autocomplete="email"></label>
+      <label>空間類型<select name="t"><option>住宅</option><option>商業空間</option><option>其他</option></select></label>
+      <label>想聊的內容<textarea name="m"></textarea></label>
+      <button class="btn" type="submit">送出預約</button>
+      <div id="ok" role="status"></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 事與作 Assiduous Design. All rights reserved.</span>
+    <span><a href="#">Instagram</a><a href="#">Facebook</a><a href="#">LINE</a></span>
+  </div>
+</footer>
+
+<dialog id="dlg" aria-label="作品詳情">
+  <button class="close" aria-label="關閉">×</button>
+  <div class="ph" id="dph"></div>
+  <div class="dlg-body"><h3 id="dt"></h3><p id="dd"></p><dl id="dl"></dl></div>
+</dialog>
+
+<script>
+const W=[
+["AD CHEN","home","台南・住宅","三代同堂的 38 坪老屋翻新，以橡木與微水泥串起連續動線。","38 坪","2025",["#cfc4b1","#a99a82","#6e6252"]],
+["AD LAI","home","高雄・住宅","為兩人與一隻貓設計的光線宅，南向開窗讓日光走滿整天。","28 坪","2025",["#d8d0c3","#b8ab97","#8a7d6a"]],
+["AD LIN","biz","台南・咖啡館","以洗石子吧檯為核心，營造安靜、適合久坐的街角空間。","22 坪","2024",["#b9ad9b","#8d806e","#4d4439"]],
+["AD WU","home","台中・住宅","大面積收納隱藏於牆面，留下完整的客廳與餐廚場域。","45 坪","2024",["#ddd3c2","#bcae98","#7b705f"]],
+["AD HUANG","biz","高雄・工作室","為設計團隊打造的開放辦公室，用木格柵劃分而不隔斷。","60 坪","2024",["#c5bba9","#9b8e7a","#5b5145"]],
+["AD TSAI","home","嘉義・住宅","保留原有磚牆與老梁，與新作木作和暖色燈光共存。","32 坪","2023",["#d3c7b4","#ab9c84","#6a5e4d"]]];
+const g=document.getElementById("grid"),dlg=document.getElementById("dlg");
+const sty=(c,i)=>`--c1:${c[0]};--c2:${c[1]};--c3:${c[2]};--x:${14+(i%3)*14}%`;
+W.forEach((w,i)=>{const b=document.createElement("button");b.className="work";b.dataset.k=w[1];
+b.innerHTML=`<div class="ph" style="${sty(w[6],i)}"></div><h3>${w[0]}</h3><span>${w[2]}</span>`;
+b.onclick=()=>{dph.setAttribute("style",sty(w[6],i));dt.textContent=w[0];dd.textContent=w[3];
+dl.innerHTML=`<div><dt>地點與類型</dt><dd>${w[2]}</dd></div><div><dt>坪數</dt><dd>${w[4]}</dd></div><div><dt>完工</dt><dd>${w[5]}</dd></div>`;dlg.showModal()};g.appendChild(b)});
+document.querySelectorAll(".filters button").forEach(b=>b.onclick=()=>{
+document.querySelectorAll(".filters button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+g.querySelectorAll(".work").forEach(w=>w.hidden=b.dataset.f!=="all"&&w.dataset.k!==b.dataset.f)});
+dlg.querySelector(".close").onclick=()=>dlg.close();
+dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
+const hd=document.getElementById("top"),bg=document.querySelector(".hero-bg"),bur=document.querySelector(".burger"),nav=document.getElementById("nav");
+const still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+addEventListener("scroll",()=>{const y=scrollY;hd.classList.toggle("solid",y>window.innerHeight*.7);if(!still&&y<innerHeight)bg.style.transform=`translateY(${y*.22}px)`},{passive:true});
+const tog=o=>{nav.classList.toggle("open",o);hd.classList.toggle("menu",o);bur.setAttribute("aria-expanded",o)};
+bur.onclick=()=>tog(!nav.classList.contains("open"));
+nav.querySelectorAll("a").forEach(a=>a.onclick=()=>tog(false));
+document.getElementById("form").onsubmit=e=>{e.preventDefault();const f=e.target,ok=document.getElementById("ok");
+if(!f.n.value.trim()||!f.c.value.trim()){ok.textContent="請填寫姓名與聯絡方式，我們才能回覆您。";return}
+ok.textContent=`${f.n.value.trim()} 您好，已收到預約，我們會在兩個工作天內聯絡您。`;f.reset()};
+</script>
+</body>
+</html>

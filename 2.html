@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>事作制所 Assiduous Design｜現代極簡室內建築與空間設計</title>
+  <meta name="description" content="事作制所 Assiduous Design — 專注於現代極簡住宅與商業空間設計，以純粹比例、溫潤材質與細膩光影層次，構築靜謐而有溫度的生活秩序。" />
+
+  <!-- Google Fonts: Noto Sans TC & Cormorant Garamond -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind Custom Design System Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            warmBg: '#F7F6F2',      // 暖米白主背景
+            pureWhite: '#FFFFFF',   // 純白卡片與留白層次
+            taupeLight: '#EAE7E1',  // 淺灰褐分割線與輔助底色
+            charcoal: '#1F1F1F',    // 深炭黑主文字與深色區塊
+            bronze: '#8C7A6B',      // 古銅金 / 暖木色點綴
+            bronzeDark: '#736355',  // 古銅深色互動態
+          },
+          fontFamily: {
+            sans: ['"Noto Sans TC"', 'system-ui', '-apple-system', 'sans-serif'],
+            serif: ['"Cormorant Garamond"', '"Noto Sans TC"', 'Georgia', 'serif'],
+          },
+          letterSpacing: {
+            widestPlus: '0.25em',
+            monumental: '0.18em',
+          },
+          keyframes: {
+            heroScale: {
+              '0%': { transform: 'scale(1.08)' },
+              '100%': { transform: 'scale(1.0)' },
+            },
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(24px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            pulseLine: {
+              '0%, 100%': { transform: 'scaleY(1)', opacity: '0.8' },
+              '50%': { transform: 'scaleY(0.5)', opacity: '0.3' },
+            }
+          },
+          animation: {
+            heroScale: 'heroScale 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards',
+            fadeUpSlow: 'fadeUp 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards',
+            pulseLine: 'pulseLine 2.2s ease-in-out infinite',
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-warmBg text-charcoal font-sans antialiased selection:bg-bronze selection:text-pureWhite overflow-x-hidden">
+
+  <!-- =====================================================================
+       1. 頂部導覽列 (Sticky Header with Dropdown & Responsive Mobile Drawer)
+       ===================================================================== -->
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b border-pureWhite/15 text-pureWhite">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 h-20 md:h-24 flex items-center justify-between">
+      
+      <!-- 左側品牌標誌 (Brand Logo) -->
+      <a href="#hero" class="group flex items-center gap-3.5 focus:outline-none" aria-label="事作制所 Assiduous Design 首頁">
+        <!-- 極簡幾何建築線條標誌 -->
+        <span class="w-8 h-8 border border-current flex items-center justify-center relative transition-transform duration-500 group-hover:rotate-90">
+          <span class="w-3.5 h-3.5 border-t border-l border-current"></span>
+        </span>
+        <div class="flex flex-col">
+          <span class="text-base md:text-lg font-medium tracking-[0.28em] leading-tight">事作制所</span>
+          <span class="font-serif text-[10px] md:text-xs tracking-[0.26em] uppercase opacity-80 mt-0.5">Assiduous Design</span>
+        </div>
+      </a>
+
+      <!-- 右側桌面版導覽選單 (Desktop Navigation) -->
+      <nav class="hidden lg:flex items-center gap-9 text-sm tracking-[0.16em]" aria-label="主導覽列">
+        <a href="#about" class="nav-link relative py-2 hover:text-bronze transition-colors duration-300">
+          <span>品牌理念</span>
+          <span class="font-serif text-xs ml-1 opacity-70">ABOUT</span>
+        </a>
+
+        <!-- 精選作品下拉選單 (Projects Dropdown) -->
+        <div class="relative group" id="projects-dropdown-wrapper">
+          <button
+            type="button"
+            id="projects-dropdown-btn"
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="nav-link flex items-center gap-1.5 py-2 hover:text-bronze transition-colors duration-300 focus:outline-none"
+          >
+            <span>精選作品</span>
+            <span class="font-serif text-xs opacity-70">PROJECTS</span>
+            <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          <!-- 下拉選單面板 -->
+          <div class="invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 absolute left-0 top-full pt-3 w-56">
+            <div class="bg-pureWhite text-charcoal border border-taupeLight shadow-xl rounded-sm py-2 divide-y divide-taupeLight/60">
+              <button
+                type="button"
+                onclick="navigateToProjectFilter('all')"
+                class="w-full text-left px-5 py-3 text-xs tracking-[0.16em] hover:bg-warmBg hover:text-bronze transition-colors flex items-center justify-between"
+              >
+                <span>全部作品</span>
+                <span class="font-serif text-[11px] text-charcoal/50">ALL</span>
+              </button>
+              <button
+                type="button"
+                onclick="navigateToProjectFilter('residential')"
+                class="w-full text-left px-5 py-3 text-xs tracking-[0.16em] hover:bg-warmBg hover:text-bronze transition-colors flex items-center justify-between"
+              >
+                <span>住宅空間</span>
+                <span class="font-serif text-[11px] text-charcoal/50">RESIDENTIAL</span>
+              </button>
+              <button
+                type="button"
+                onclick="navigateToProjectFilter('commercial')"
+                class="w-full text-left px-5 py-3 text-xs tracking-[0.16em] hover:bg-warmBg hover:text-bronze transition-colors flex items-center justify-between"
+              >
+                <span>商業空間</span>
+                <span class="font-serif text-[11px] text-charcoal/50">COMMERCIAL</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <a href="#workflow" class="nav-link relative py-2 hover:text-bronze transition-colors duration-300">
+          <span>設計流程</span>
+          <span class="font-serif text-xs ml-1 opacity-70">WORKFLOW</span>
+        </a>
+
+        <a href="#testimonials" class="nav-link relative py-2 hover:text-bronze transition-colors duration-300">
+          <span>顧客回饋</span>
+          <span class="font-serif text-xs ml-1 opacity-70">VOICES</span>
+        </a>
+
+        <a
+          href="#contact"
+          id="nav-cta"
+          class="ml-2 px-5 py-2.5 border border-current text-xs tracking-[0.2em] rounded-sm hover:bg-bronze hover:border-bronze hover:text-pureWhite transition-all duration-300"
+        >
+          預約諮詢
+        </a>
+      </nav>
+
+      <!-- 手機版漢堡選單按鈕 (Mobile Hamburger Button) -->
+      <button
+        type="button"
+        id="mobile-menu-btn"
+        aria-label="開啟主選單"
+        aria-expanded="false"
+        class="lg:hidden p-2.5 -mr-2 focus:outline-none"
+      >
+        <div class="w-6 h-5 flex flex-col justify-between items-end">
+          <span id="bar-1" class="w-6 h-[1.5px] bg-current transition-all duration-300 origin-right"></span>
+          <span id="bar-2" class="w-4 h-[1.5px] bg-current transition-all duration-300"></span>
+          <span id="bar-3" class="w-6 h-[1.5px] bg-current transition-all duration-300 origin-right"></span>
+        </div>
+      </button>
+    </div>
+
+    <!-- 手機版展開抽屜選單 (Mobile Drawer Menu) -->
+    <div
+      id="mobile-menu"
+      class="lg:hidden hidden bg-warmBg text-charcoal border-b border-taupeLight shadow-2xl"
+    >
+      <div class="px-6 py-8 flex flex-col space-y-5 text-sm tracking-[0.18em]">
+        <a href="#about" onclick="closeMobileMenu()" class="py-2 border-b border-taupeLight flex justify-between items-center">
+          <span>品牌理念</span>
+          <span class="font-serif text-xs text-bronze">ABOUT US</span>
+        </a>
+
+        <!-- 手機版作品子分類 -->
+        <div class="py-2 border-b border-taupeLight">
+          <div class="flex justify-between items-center mb-3">
+            <span>精選作品</span>
+            <span class="font-serif text-xs text-bronze">PROJECTS</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 pt-1">
+            <button
+              type="button"
+              onclick="navigateToProjectFilter('all'); closeMobileMenu();"
+              class="py-2.5 px-2 text-xs bg-pureWhite border border-taupeLight rounded-sm text-center hover:border-bronze transition-colors"
+            >
+              全部作品
+            </button>
+            <button
+              type="button"
+              onclick="navigateToProjectFilter('residential'); closeMobileMenu();"
+              class="py-2.5 px-2 text-xs bg-pureWhite border border-taupeLight rounded-sm text-center hover:border-bronze transition-colors"
+            >
+              住宅空間
+            </button>
+            <button
+              type="button"
+              onclick="navigateToProjectFilter('commercial'); closeMobileMenu();"
+              class="py-2.5 px-2 text-xs bg-pureWhite border border-taupeLight rounded-sm text-center hover:border-bronze transition-colors"
+            >
+              商業空間
+            </button>
+          </div>
+        </div>
+
+        <a href="#workflow" onclick="closeMobileMenu()" class="py-2 border-b border-taupeLight flex justify-between items-center">
+          <span>設計流程</span>
+          <span class="font-serif text-xs text-bronze">WORKFLOW</span>
+        </a>
+
+        <a href="#testimonials" onclick="closeMobileMenu()" class="py-2 border-b border-taupeLight flex justify-between items-center">
+          <span>顧客回饋</span>
+          <span class="font-serif text-xs text-bronze">TESTIMONIALS</span>
+        </a>
+
+        <a
+          href="#contact"
+          onclick="closeMobileMenu()"
+          class="mt-2 py-3.5 bg-charcoal text-pureWhite text-center text-xs tracking-[0.24em] rounded-sm hover:bg-bronze transition-colors"
+        >
+          線上預約空間諮詢
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       2. 首屏視覺區 (Full-Bleed Architectural Hero Section)
+       ===================================================================== -->
+  <section id="hero" class="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-charcoal">
+    <!-- 背景實景室內攝影 (帶視差與進場緩動效果) -->
+    <div id="hero-parallax" class="absolute inset-0 w-full h-full">
+      <img
+        src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2000&q=85"
+        onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/1F1F1F/8C7A6B?text=ASSIDUOUS+DESIGN';"
+        alt="事作制所 Assiduous Design 極簡現代住宅客廳空間光影實景"
+        class="w-full h-full object-cover object-center animate-heroScale opacity-80"
+      />
+      <!-- 建築感漸層遮罩確保文字清晰讀性 -->
+      <div class="absolute inset-0 bg-gradient-to-b from-charcoal/65 via-charcoal/40 to-charcoal/80"></div>
+    </div>
+
+    <!-- 細微幾何建築框線裝飾 -->
+    <div class="pointer-events-none absolute inset-6 sm:inset-10 border border-pureWhite/15 hidden sm:block"></div>
+
+    <!-- 中央品牌主視覺標語 -->
+    <div class="relative z-10 max-w-6xl mx-auto px-6 text-center text-pureWhite pt-16">
+      <p class="font-serif italic text-sm sm:text-base md:text-lg tracking-[0.32em] text-taupeLight/90 mb-5 opacity-0 animate-fadeUpSlow" style="animation-delay: 0.2s;">
+        Architecture &amp; Interior Spatial Studio
+      </p>
+
+      <h1 class="font-serif font-light text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] tracking-[0.16em] sm:tracking-[0.22em] uppercase leading-[1.1] opacity-0 animate-fadeUpSlow" style="animation-delay: 0.45s;">
+        ASSIDUOUS DESIGN
+      </h1>
+
+      <!-- 古銅金幾何分割短線 -->
+      <div class="w-16 h-[1px] bg-bronze mx-auto my-7 sm:my-9 opacity-0 animate-fadeUpSlow" style="animation-delay: 0.65s;"></div>
+
+      <p class="text-base sm:text-xl md:text-2xl font-light tracking-[0.35em] text-pureWhite/95 mb-4 opacity-0 animate-fadeUpSlow" style="animation-delay: 0.8s;">
+        事作制所
+      </p>
+
+      <p class="max-w-xl mx-auto text-xs sm:text-sm font-light tracking-[0.16em] leading-relaxed text-taupeLight/85 opacity-0 animate-fadeUpSlow" style="animation-delay: 0.95s;">
+        以減法梳理空間秩序，讓光影、材質與日常行為自然對話
+      </p>
+
+      <!-- 首屏行動呼籲按鈕 -->
+      <div class="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 opacity-0 animate-fadeUpSlow" style="animation-delay: 1.1s;">
+        <a
+          href="#projects"
+          class="w-full sm:w-auto px-8 py-3.5 bg-pureWhite text-charcoal text-xs tracking-[0.22em] font-medium rounded-sm hover:bg-bronze hover:text-pureWhite transition-all duration-300"
+        >
+          探索精選作品
+        </a>
+        <a
+          href="#about"
+          class="w-full sm:w-auto px-8 py-3.5 border border-pureWhite/50 text-pureWhite text-xs tracking-[0.22em] rounded-sm hover:border-pureWhite hover:bg-pureWhite/10 transition-all duration-300"
+        >
+          認識事作理念
+        </a>
+      </div>
+    </div>
+
+    <!-- 底部捲動指示器 (Scroll Indicator) -->
+    <a href="#about" aria-label="向下捲動瀏覽品牌理念" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-pureWhite/75 hover:text-pureWhite transition-colors">
+      <span class="font-serif text-[10px] tracking-[0.3em] uppercase">Scroll</span>
+      <span class="w-[1px] h-10 bg-pureWhite/60 origin-top animate-pulseLine"></span>
+    </a>
+  </section>
+
+  <!-- =====================================================================
+       3. 品牌理念 (About Us — 雙欄不對稱排版與「事」「作」寓意拆解)
+       ===================================================================== -->
+  <section id="about" class="py-24 md:py-36 bg-warmBg border-b border-taupeLight">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
+      
+      <!-- 區塊頂部索引 -->
+      <div class="reveal-item flex items-center justify-between border-b border-taupeLight pb-5 mb-14 md:mb-20">
+        <div class="flex items-center gap-3">
+          <span class="font-serif text-sm text-bronze tracking-[0.2em]">01</span>
+          <span class="w-6 h-[1px] bg-bronze"></span>
+          <span class="text-xs tracking-[0.25em] uppercase text-charcoal/70">Brand Philosophy / 品牌理念</span>
+        </div>
+        <span class="hidden sm:inline font-serif italic text-sm text-charcoal/50">Stillness, Proportion &amp; Craft</span>
+      </div>
+
+      <!-- 雙欄不對稱主結構 (5 : 7 Grid) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        
+        <!-- 左欄：空間意象攝影與核心數據指標 -->
+        <div class="lg:col-span-5 reveal-item">
+          <div class="relative overflow-hidden rounded-sm bg-taupeLight aspect-[4/5] mb-8 group">
+            <img
+              src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1000&q=85"
+              onerror="this.onerror=null;this.src='https://placehold.co/800x1000/EAE7E1/1F1F1F?text=ASSIDUOUS+SPACE';"
+              alt="事作制所 溫潤木質與自然光影空間細節"
+              class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+            />
+            <div class="absolute bottom-4 left-4 right-4 bg-pureWhite/90 backdrop-blur-sm px-4 py-3 border border-taupeLight/80 rounded-sm">
+              <p class="font-serif italic text-xs text-bronze tracking-wider">Material &amp; Light Study</p>
+              <p class="text-xs text-charcoal/80 tracking-wider mt-0.5">天然洞石、微水泥與無主燈漫射光影的靜謐平衡</p>
+            </div>
+          </div>
+
+          <!-- 數據信任指標 -->
+          <div class="grid grid-cols-2 gap-6 pt-4 border-t border-taupeLight">
+            <div>
+              <p class="font-serif text-3xl sm:text-4xl text-bronze font-normal">95<span class="text-xl">%</span>+</p>
+              <p class="text-xs tracking-[0.14em] text-charcoal/75 mt-1">3D 視覺與完工實景高還原度</p>
+            </div>
+            <div class="border-l border-taupeLight pl-6">
+              <p class="font-serif text-3xl sm:text-4xl text-charcoal font-normal">1 <span class="text-lg">YEAR</span></p>
+              <p class="text-xs tracking-[0.14em] text-charcoal/75 mt-1">完整工程保固與終生設計諮詢</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右欄：核心精神文案與「事」「作」雙重寓意拆解 -->
+        <div class="lg:col-span-7 lg:pl-6 reveal-item">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-light tracking-[0.14em] leading-[1.5] text-charcoal mb-8">
+            於留白與比例之間，<br />
+            為每一段日常構築<span class="text-bronze font-normal">從容安定的棲所</span>。
+          </h2>
+
+          <p class="text-sm sm:text-base font-light leading-[2] tracking-[0.06em] text-charcoal/80 mb-12">
+            「事作制所 Assiduous Design」相信，真正動人的空間不在於繁複的裝飾堆砌，而是源於對居住者生活軌跡的深刻理解。我們以建築般的嚴謹尺度梳理光線、動線與收納機能，讓材質隨時間流逝展現溫潤質感，使家成為能讓人卸下喧囂、回歸內在平靜的場域。
+          </p>
+
+          <!-- 「事」與「作」雙概念幾何卡片 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- 概念一：事 -->
+            <div class="bg-pureWhite p-8 sm:p-9 border border-taupeLight rounded-sm hover:border-bronze transition-colors duration-500 flex flex-col justify-between">
+              <div>
+                <div class="flex items-baseline justify-between border-b border-taupeLight pb-4 mb-5">
+                  <span class="text-3xl font-light text-charcoal tracking-widest">「事」</span>
+                  <span class="font-serif italic text-xs tracking-[0.2em] text-bronze uppercase">Insight &amp; Life</span>
+                </div>
+                <h3 class="text-base font-medium tracking-[0.16em] text-charcoal mb-3">
+                  洞察生活之本質與日常軌跡
+                </h3>
+                <p class="text-xs sm:text-sm font-light leading-[1.9] text-charcoal/75 tracking-wide">
+                  從居者的作息習慣、家庭互動到收納細節出發，傾聽每一件生活小事，將無形的情感需求轉化為貼合身心的空間秩序。
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-taupeLight/60 flex items-center gap-2 text-[11px] font-serif tracking-[0.2em] text-bronze">
+                <span>01</span>
+                <span class="w-4 h-[1px] bg-bronze"></span>
+                <span>HUMAN-CENTRIC NARRATIVE</span>
+              </div>
+            </div>
+
+            <!-- 概念二：作 -->
+            <div class="bg-pureWhite p-8 sm:p-9 border border-taupeLight rounded-sm hover:border-bronze transition-colors duration-500 flex flex-col justify-between">
+              <div>
+                <div class="flex items-baseline justify-between border-b border-taupeLight pb-4 mb-5">
+                  <span class="text-3xl font-light text-charcoal tracking-widest">「作」</span>
+                  <span class="font-serif italic text-xs tracking-[0.2em] text-bronze uppercase">Craft &amp; Precision</span>
+                </div>
+                <h3 class="text-base font-medium tracking-[0.16em] text-charcoal mb-3">
+                  恪守工藝之純粹與細節執著
+                </h3>
+                <p class="text-xs sm:text-sm font-light leading-[1.9] text-charcoal/75 tracking-wide">
+                  秉持「Assiduous 勤勉專注」的職人精神，嚴格把關每一道材質收邊、比例分割與多層次燈光配置，實現設計圖面的極致還原。
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-taupeLight/60 flex items-center gap-2 text-[11px] font-serif tracking-[0.2em] text-bronze">
+                <span>02</span>
+                <span class="w-4 h-[1px] bg-bronze"></span>
+                <span>ASSIDUOUS EXECUTION</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       4. 精選作品展示 (Featured Works — 分類篩選 + 6 大代表作 + 互動 Modal)
+       ===================================================================== -->
+  <section id="projects" class="py-24 md:py-36 bg-pureWhite border-b border-taupeLight">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
+      
+      <!-- 區塊頂部索引 -->
+      <div class="reveal-item flex items-center justify-between border-b border-taupeLight pb-5 mb-12">
+        <div class="flex items-center gap-3">
+          <span class="font-serif text-sm text-bronze tracking-[0.2em]">02</span>
+          <span class="w-6 h-[1px] bg-bronze"></span>
+          <span class="text-xs tracking-[0.25em] uppercase text-charcoal/70">Selected Projects / 精選作品</span>
+        </div>
+        <span class="hidden sm:inline font-serif italic text-sm text-charcoal/50">Curated Spatial Archive</span>
+      </div>
+
+      <!-- 作品理念引言與分類篩選列 -->
+      <div class="reveal-item flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-14">
+        <div class="max-w-2xl">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-light tracking-[0.14em] text-charcoal mb-4">
+            空間不只是容器，<br class="sm:hidden" />而是光影與時間對話的場域
+          </h2>
+          <p class="text-xs sm:text-sm font-light tracking-[0.08em] text-charcoal/70 leading-relaxed">
+            點擊任一專案卡片，檢視完整空間材質配置、格局尺度與設計概念解析。
+          </p>
+        </div>
+
+        <!-- 分類篩選按鈕 (Filter Buttons) -->
+        <div class="flex flex-wrap items-center gap-2.5" role="tablist" aria-label="作品空間類型篩選">
+          <button
+            type="button"
+            data-filter="all"
+            onclick="filterProjects('all')"
+            class="filter-btn active px-5 py-2.5 text-xs tracking-[0.18em] rounded-sm border border-charcoal bg-charcoal text-pureWhite transition-all duration-300"
+          >
+            全部作品 <span class="font-serif ml-1 opacity-80">ALL</span>
+          </button>
+          <button
+            type="button"
+            data-filter="residential"
+            onclick="filterProjects('residential')"
+            class="filter-btn px-5 py-2.5 text-xs tracking-[0.18em] rounded-sm border border-taupeLight bg-warmBg text-charcoal hover:border-bronze transition-all duration-300"
+          >
+            住宅空間 <span class="font-serif ml-1 opacity-70">RESIDENTIAL</span>
+          </button>
+          <button
+            type="button"
+            data-filter="commercial"
+            onclick="filterProjects('commercial')"
+            class="filter-btn px-5 py-2.5 text-xs tracking-[0.18em] rounded-sm border border-taupeLight bg-warmBg text-charcoal hover:border-bronze transition-all duration-300"
+          >
+            商業空間 <span class="font-serif ml-1 opacity-70">COMMERCIAL</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 6 個代表專案網格 (由 JavaScript 動態渲染與篩選) -->
+      <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+        <!-- 專案卡片將由 JS 注入 -->
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       5. 設計流程 (Workflow — 3x2 網格呈現 01 至 06 服務階段)
+       ===================================================================== -->
+  <section id="workflow" class="py-24 md:py-36 bg-warmBg border-b border-taupeLight">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
+      
+      <!-- 區塊頂部索引 -->
+      <div class="reveal-item flex items-center justify-between border-b border-taupeLight pb-5 mb-12">
+        <div class="flex items-center gap-3">
+          <span class="font-serif text-sm text-bronze tracking-[0.2em]">03</span>
+          <span class="w-6 h-[1px] bg-bronze"></span>
+          <span class="text-xs tracking-[0.25em] uppercase text-charcoal/70">Design Workflow / 設計流程</span>
+        </div>
+        <span class="hidden sm:inline font-serif italic text-sm text-charcoal/50">From Vision to Reality</span>
+      </div>
+
+      <div class="reveal-item max-w-2xl mb-16">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-light tracking-[0.14em] text-charcoal mb-4">
+          嚴謹透明的六階空間實踐
+        </h2>
+        <p class="text-xs sm:text-sm font-light tracking-[0.08em] text-charcoal/75 leading-relaxed">
+          從初次傾聽、精準圖面模擬到職人現場監造與一年完整保固，每個階段皆建立清晰的溝通節點，陪伴您安心實現理想生活藍圖。
+        </p>
+      </div>
+
+      <!-- 3x2 設計流程網格 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        
+        <!-- Stage 01 -->
+        <div class="reveal-item group bg-pureWhite p-8 sm:p-10 border border-taupeLight rounded-sm hover:border-bronze transition-all duration-500 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-8">
+              <span class="font-serif text-4xl font-light text-bronze tracking-wider">01</span>
+              <span class="text-[11px] font-serif tracking-[0.2em] uppercase px-3 py-1 bg-warmBg text-charcoal/70 rounded-sm">Consultation</span>
+            </div>
+            <h3 class="text-lg font-medium tracking-[0.14em] text-charcoal mb-3 group-hover:text-bronze transition-colors">
+              初步諮詢與現場丈量
+            </h3>
+            <p class="text-xs sm:text-sm font-light leading-[1.9] text-charcoal/75">
+              深入了解家庭成員組成、生活習慣、風格偏好與預算配置，並親赴現場進行精準建築結構與管線勘查丈量。
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-taupeLight/70 text-[11px] tracking-[0.15em] text-charcoal/50">
+            PHASE I · 前置需求與基地勘查
+          </div>
+        </div>
+
+        <!-- Stage 02 -->
+        <div class="reveal-item group bg-pureWhite p-8 sm:p-10 border border-taupeLight rounded-sm hover:border-bronze transition-all duration-500 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-8">
+              <span class="font-serif text-4xl font-light text-bronze tracking-wider">02</span>
+              <span class="text-[11px] font-serif tracking-[0.2em] uppercase px-3 py-1 bg-warmBg text-charcoal/70 rounded-sm">Proposal</span>
+            </div>
+            <h3 class="text-lg font-medium tracking-[0.14em] text-charcoal mb-3 group-hover:text-bronze transition-colors">
+              概念提案與平面配置
+            </h3>
+            <p class="text-xs sm:text-sm font-light leading-[1.9] text-charcoal/75">
+              提出空間動線格局規劃、收納系統分布及材質色彩情緒板（Moodboard），共同確立專屬於您的空間美學方向。
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-taupeLight/70 text-[11px] tracking-[0.15em] text-charcoal/50">
+            PHASE II · 空間格局與材質定位
+          </div>
+        </div>
+
+        <!-- Stage 03 -->
+        <div class="reveal-item group bg-pureWhite p-8 sm:p-10 border border-taupeLight rounded-sm hover:border-bronze transition-all duration-500 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-8">
+              <span class="font-serif text-4xl font-light text-bronze tracking-wider">03</span>
+              <span class="text-[11px] font-serif tracking-[0.2em] uppercase px-3 py-1 bg-warmBg text-charcoal/70 rounded-sm">Design &amp; 3D</span>
+            </div>
+            <h3 class="text-lg font-medium tracking-[0.14em] text-charcoal mb-3 group-hover:text-bronze transition-colors">
+              設計合約與 3D 光影模擬
+            </h3>
+            <p class="text-xs sm:text-sm font-light leading-[1.9] text-charcoal/75">
+              簽訂設計合約後，展開全套施工圖面繪製與擬真 3D 空間渲染，精確推演自然採光與人工照明的層次比例。
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-taupeLight/70 text-[11px] tracking-[0.15em] text-charcoal/50">
+            PHASE III · 細節圖說與視覺定案
+          </div>
+        </div>
+
+        <!-- Stage 04 -->
+        <div class="reveal-item group bg-pureWhite p-8 sm:p-10 border border-taupeLight rounded-sm hover:border-bronze transition-all duration-500 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-8">
+              <span class="font-serif text-4xl font-light text-bronze tracking-wider">04</span>
+              <span class="text-[11px] font-serif tracking-[0.2em] uppercase px-3 py-1 bg-warmBg text-charcoal/70 rounded-sm">Contract</span>
+            </div>
+            <h3 class="text-lg font-medium tracking-[0.14em] text-charcoal mb-3 group-hover:text-bronze transition-colors">
+              工程預算核定與施工簽約
+            </h3>
+            <p class="text-xs sm:text-sm font-light leading-[1.9] text-charcoal/75">
+              提供透明詳盡的工程報價單，逐項說明工法與建材規格；確認總工期進度表並簽訂正式工程承攬合約。
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-taupeLight/70 text-[11px] tracking-[0.15em] text-charcoal/50">
+            PHASE IV · 透明報價與工期排程
+          </div>
+        </div>
+
+        <!-- Stage 05 -->
+        <div class="reveal-item group bg-pureWhite p-8 sm:p-10 border border-taupeLight rounded-sm hover:border-bronze transition-all duration-500 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-8">
+              <span class="font-serif text-4xl font-light text-bronze tracking-wider">05</span>
+              <span class="text-[11px] font-serif tracking-[0.2em] uppercase px-3 py-1 bg-warmBg text-charcoal/70 rounded-sm">Execution</span>
+            </div>
+            <h3 class="text-lg font-medium tracking-[0.14em] text-charcoal mb-3 group-hover:text-bronze transition-colors">
+              職人監造與品質把關
+            </h3>
+            <p class="text-xs sm:text-sm font-light leading-[1.9] text-charcoal/75">
+              設計師定期駐場監督木作、水電、泥作與塗料工班，定期回報工程進度影像，嚴格控管收邊細節與 95% 以上高還原度。
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-taupeLight/70 text-[11px] tracking-[0.15em] text-charcoal/50">
+            PHASE V · 現場工程管理與對色驗收
+          </div>
+        </div>
+
+        <!-- Stage 06 -->
+        <div class="reveal-item group bg-pureWhite p-8 sm:p-10 border border-taupeLight rounded-sm hover:border-bronze transition-all duration-500 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-8">
+              <span class="font-serif text-4xl font-light text-bronze tracking-wider">06</span>
+              <span class="text-[11px] font-serif tracking-[0.2em] uppercase px-3 py-1 bg-bronze/15 text-bronze rounded-sm">Warranty</span>
+            </div>
+            <h3 class="text-lg font-medium tracking-[0.14em] text-charcoal mb-3 group-hover:text-bronze transition-colors">
+              完工交屋與一年保固服務
+            </h3>
+            <p class="text-xs sm:text-sm font-light leading-[1.9] text-charcoal/75">
+              完成全室細部清潔、燈光場景調校與設備點交。正式入住後享有完整一年工程保固，以及終生空間維護與軟裝諮詢。
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-taupeLight/70 text-[11px] tracking-[0.15em] text-bronze font-medium">
+            PHASE VI · 一年工程保固 ＆ 終生諮詢
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       6. 顧客回饋 (Testimonials — 三欄客戶見證：Lee R、Jack ＆ Cindy、Eille Lu)
+       ===================================================================== -->
+  <section id="testimonials" class="py-24 md:py-36 bg-pureWhite border-b border-taupeLight">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
+      
+      <!-- 區塊頂部索引 -->
+      <div class="reveal-item flex items-center justify-between border-b border-taupeLight pb-5 mb-12">
+        <div class="flex items-center gap-3">
+          <span class="font-serif text-sm text-bronze tracking-[0.2em]">04</span>
+          <span class="w-6 h-[1px] bg-bronze"></span>
+          <span class="text-xs tracking-[0.25em] uppercase text-charcoal/70">Testimonials / 顧客回饋</span>
+        </div>
+        <span class="hidden sm:inline font-serif italic text-sm text-charcoal/50">Client Reflections</span>
+      </div>
+
+      <div class="reveal-item flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-light tracking-[0.14em] text-charcoal">
+            來自空間居者的真實迴響
+          </h2>
+        </div>
+        <p class="text-xs sm:text-sm font-light tracking-[0.08em] text-charcoal/70 max-w-md">
+          每一次託付都是信任的開始，我們珍視屋主入住後的每一份生活感受。
+        </p>
+      </div>
+
+      <!-- 三欄客戶見證網格 -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- 客戶見證 1: Lee R -->
+        <article class="reveal-item bg-warmBg p-8 sm:p-10 border border-taupeLight rounded-sm flex flex-col justify-between relative">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="font-serif text-5xl leading-none text-bronze/50 select-none">“</span>
+              <span class="text-[11px] tracking-[0.18em] px-3 py-1 bg-pureWhite border border-taupeLight text-bronze rounded-sm">
+                95% 高還原度
+              </span>
+            </div>
+            <p class="text-sm font-light leading-[2] tracking-[0.05em] text-charcoal/85 mb-8">
+              「從最初看 3D 渲染圖到實際交屋那天，整個空間的質感與比例幾乎達到 <strong class="font-medium text-charcoal">95% 以上的高還原度</strong>！尤其是客廳弧形天花板搭配間接線性光源的層次，晚上只開氛圍燈時整個家安靜得像精品飯店，每次回家都覺得很療癒。」
+            </p>
+          </div>
+          <div class="pt-6 border-t border-taupeLight flex items-center justify-between">
+            <div>
+              <p class="font-serif text-lg tracking-[0.14em] text-charcoal font-medium">Lee R</p>
+              <p class="text-xs text-charcoal/60 tracking-wider mt-0.5">AD LEE 屋主｜現代住宅空間</p>
+            </div>
+            <span class="font-serif italic text-xs text-bronze">Kaohsiung</span>
+          </div>
+        </article>
+
+        <!-- 客戶見證 2: Jack ＆ Cindy -->
+        <article class="reveal-item bg-warmBg p-8 sm:p-10 border border-taupeLight rounded-sm flex flex-col justify-between relative">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="font-serif text-5xl leading-none text-bronze/50 select-none">“</span>
+              <span class="text-[11px] tracking-[0.18em] px-3 py-1 bg-pureWhite border border-taupeLight text-bronze rounded-sm">
+                細膩傾聽與收納
+              </span>
+            </div>
+            <p class="text-sm font-light leading-[2] tracking-[0.05em] text-charcoal/85 mb-8">
+              「我們夫妻對生活動線與收納有很多細節要求，事作制所團隊在討論過程中展現極大的耐心，把我們零散的想法梳理成俐落的隱藏式櫃體。木皮與礦物塗料的溫潤觸感讓人百看不厭，連來訪的親友都稱讚空間大氣又沒有壓迫感。」
+            </p>
+          </div>
+          <div class="pt-6 border-t border-taupeLight flex items-center justify-between">
+            <div>
+              <p class="font-serif text-lg tracking-[0.14em] text-charcoal font-medium">Jack ＆ Cindy</p>
+              <p class="text-xs text-charcoal/60 tracking-wider mt-0.5">AD CHEN 屋主｜靜謐微光宅</p>
+            </div>
+            <span class="font-serif italic text-xs text-bronze">Taipei</span>
+          </div>
+        </article>
+
+        <!-- 客戶見證 3: Eille Lu -->
+        <article class="reveal-item bg-warmBg p-8 sm:p-10 border border-taupeLight rounded-sm flex flex-col justify-between relative">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="font-serif text-5xl leading-none text-bronze/50 select-none">“</span>
+              <span class="text-[11px] tracking-[0.18em] px-3 py-1 bg-pureWhite border border-taupeLight text-bronze rounded-sm">
+                細膩燈光規劃
+              </span>
+            </div>
+            <p class="text-sm font-light leading-[2] tracking-[0.05em] text-charcoal/85 mb-8">
+              「在規劃工作室與接待空間時，最讓我們驚豔的是事作制所對<strong class="font-medium text-charcoal">燈光色溫與光影角度的精準拿捏</strong>。白天引入自然天光、傍晚切換成柔和重點照明，不僅讓材質紋理更立體，也讓團隊與客戶在空間裡都能保持專注與放鬆。」
+            </p>
+          </div>
+          <div class="pt-6 border-t border-taupeLight flex items-center justify-between">
+            <div>
+              <p class="font-serif text-lg tracking-[0.14em] text-charcoal font-medium">Eille Lu</p>
+              <p class="text-xs text-charcoal/60 tracking-wider mt-0.5">AD OFFICE 創辦人｜商業辦公空間</p>
+            </div>
+            <span class="font-serif italic text-xs text-bronze">Taipei</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       7. 聯繫我們與頁尾 (Contact & Footer — 深炭黑 #1F1F1F 質感背景)
+       ===================================================================== -->
+  <section id="contact" class="py-24 md:py-32 bg-charcoal text-pureWhite">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
+      
+      <!-- 區塊頂部索引 -->
+      <div class="reveal-item flex items-center justify-between border-b border-pureWhite/15 pb-5 mb-16">
+        <div class="flex items-center gap-3">
+          <span class="font-serif text-sm text-bronze tracking-[0.2em]">05</span>
+          <span class="w-6 h-[1px] bg-bronze"></span>
+          <span class="text-xs tracking-[0.25em] uppercase text-taupeLight/80">Contact &amp; Inquiry / 聯繫我們</span>
+        </div>
+        <span class="hidden sm:inline font-serif italic text-sm text-taupeLight/50">Start Your Spatial Journey</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-16">
+        
+        <!-- 左側：品牌聯絡資訊與社群連結 -->
+        <div class="lg:col-span-5 reveal-item flex flex-col justify-between">
+          <div>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-light tracking-[0.16em] leading-snug mb-6">
+              開啟您的<br />專屬空間對話
+            </h2>
+            <p class="text-xs sm:text-sm font-light leading-[1.95] text-taupeLight/75 tracking-wider mb-12">
+              無論是新成屋規劃、老屋翻新、預售屋客變或商業空間設計，歡迎透過線上表單預約一對一深度諮詢，我們將於 1–2 個工作日內由專人與您聯繫。
+            </p>
+
+            <!-- 聯絡明細列表 -->
+            <div class="space-y-6 border-t border-pureWhite/15 pt-8 text-sm font-light tracking-wider">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <span class="block font-serif text-xs uppercase tracking-[0.2em] text-bronze mb-1">Telephone</span>
+                  <a href="tel:+886227089412" class="text-pureWhite hover:text-bronze transition-colors">02-2708-9412</a>
+                </div>
+                <button
+                  type="button"
+                  onclick="copyTextToClipboard('02-2708-9412', '聯絡電話')"
+                  class="text-[11px] px-2.5 py-1 border border-pureWhite/20 rounded-sm text-taupeLight/70 hover:border-bronze hover:text-bronze transition-colors"
+                >
+                  複製
+                </button>
+              </div>
+
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <span class="block font-serif text-xs uppercase tracking-[0.2em] text-bronze mb-1">Email</span>
+                  <a href="mailto:hello@assiduous-design.tw" class="text-pureWhite hover:text-bronze transition-colors">hello@assiduous-design.tw</a>
+                </div>
+                <button
+                  type="button"
+                  onclick="copyTextToClipboard('hello@assiduous-design.tw', '電子信箱')"
+                  class="text-[11px] px-2.5 py-1 border border-pureWhite/20 rounded-sm text-taupeLight/70 hover:border-bronze hover:text-bronze transition-colors"
+                >
+                  複製
+                </button>
+              </div>
+
+              <div>
+                <span class="block font-serif text-xs uppercase tracking-[0.2em] text-bronze mb-1">Studio Address</span>
+                <p class="text-taupeLight/90">台北市大安區仁愛路四段 112 巷 18 號 2 樓</p>
+                <p class="text-xs text-taupeLight/55 mt-1">週一至週五 10:00 – 19:00（採預約制）</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 社群圖示 (Social Icons) -->
+          <div class="mt-12 pt-8 border-t border-pureWhite/15">
+            <span class="block font-serif text-xs uppercase tracking-[0.25em] text-taupeLight/60 mb-4">Follow Assiduous</span>
+            <div class="flex items-center gap-3.5">
+              <!-- Instagram -->
+              <a
+                href="#contact"
+                onclick="showToast('已開啟 事作制所 Instagram 官方帳號視窗'); return false;"
+                aria-label="Instagram"
+                class="w-10 h-10 border border-pureWhite/20 rounded-sm flex items-center justify-center text-taupeLight hover:border-bronze hover:bg-bronze hover:text-pureWhite transition-all duration-300"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+              <!-- Facebook -->
+              <a
+                href="#contact"
+                onclick="showToast('已開啟 事作制所 Facebook 專頁視窗'); return false;"
+                aria-label="Facebook"
+                class="w-10 h-10 border border-pureWhite/20 rounded-sm flex items-center justify-center text-taupeLight hover:border-bronze hover:bg-bronze hover:text-pureWhite transition-all duration-300"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+                  <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+                </svg>
+              </a>
+              <!-- LINE Official -->
+              <a
+                href="#contact"
+                onclick="copyTextToClipboard('@assiduous.design', '官方 LINE ID (@assiduous.design)'); return false;"
+                aria-label="LINE 官方帳號"
+                class="w-10 h-10 border border-pureWhite/20 rounded-sm flex items-center justify-center text-taupeLight hover:border-bronze hover:bg-bronze hover:text-pureWhite transition-all duration-300"
+              >
+                <span class="font-sans text-[10px] font-bold tracking-tighter">LINE</span>
+              </a>
+              <!-- Behance / Portfolio -->
+              <a
+                href="#projects"
+                aria-label="Behance 作品集"
+                class="w-10 h-10 border border-pureWhite/20 rounded-sm flex items-center justify-center text-taupeLight hover:border-bronze hover:bg-bronze hover:text-pureWhite transition-all duration-300"
+              >
+                <span class="font-serif text-xs font-semibold tracking-wider">Bē</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右側：互動式線上預約表單 (Interactive Consultation Form) -->
+        <div class="lg:col-span-7 reveal-item">
+          <div class="bg-pureWhite/[0.03] border border-pureWhite/15 p-8 sm:p-10 md:p-12 rounded-sm">
+            <div class="flex items-center justify-between border-b border-pureWhite/15 pb-5 mb-8">
+              <div>
+                <h3 class="text-lg sm:text-xl font-light tracking-[0.16em] text-pureWhite">線上預約諮詢表單</h3>
+                <p class="font-serif italic text-xs text-bronze mt-1">Online Consultation Reservation</p>
+              </div>
+              <span class="text-[11px] text-taupeLight/60 tracking-wider">* 為必填欄位</span>
+            </div>
+
+            <!-- 表單本體 -->
+            <form id="consultation-form" class="space-y-6" novalidate>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- 姓名 -->
+                <div>
+                  <label for="client-name" class="block text-xs tracking-[0.16em] text-taupeLight/80 mb-2">
+                    您的稱呼 <span class="text-bronze">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="client-name"
+                    name="name"
+                    required
+                    placeholder="例如：陳先生 / 林小姐"
+                    class="w-full bg-transparent border-b border-pureWhite/25 py-3 px-1 text-sm text-pureWhite placeholder:text-pureWhite/30 focus:outline-none focus:border-bronze transition-colors"
+                  />
+                </div>
+
+                <!-- 聯絡電話 / LINE -->
+                <div>
+                  <label for="client-phone" class="block text-xs tracking-[0.16em] text-taupeLight/80 mb-2">
+                    聯絡電話 / LINE ID <span class="text-bronze">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="client-phone"
+                    name="phone"
+                    required
+                    placeholder="0912-345-678"
+                    class="w-full bg-transparent border-b border-pureWhite/25 py-3 px-1 text-sm text-pureWhite placeholder:text-pureWhite/30 focus:outline-none focus:border-bronze transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- 電子信箱 -->
+                <div>
+                  <label for="client-email" class="block text-xs tracking-[0.16em] text-taupeLight/80 mb-2">
+                    電子信箱 <span class="text-bronze">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="client-email"
+                    name="email"
+                    required
+                    placeholder="name@example.com"
+                    class="w-full bg-transparent border-b border-pureWhite/25 py-3 px-1 text-sm text-pureWhite placeholder:text-pureWhite/30 focus:outline-none focus:border-bronze transition-colors"
+                  />
+                </div>
+
+                <!-- 空間類型 -->
+                <div>
+                  <label for="space-type" class="block text-xs tracking-[0.16em] text-taupeLight/80 mb-2">
+                    空間類型 <span class="text-bronze">*</span>
+                  </label>
+                  <select
+                    id="space-type"
+                    name="spaceType"
+                    class="w-full bg-charcoal border-b border-pureWhite/25 py-3 px-1 text-sm text-pureWhite focus:outline-none focus:border-bronze transition-colors"
+                  >
+                    <option value="新成屋住宅設計">新成屋住宅設計</option>
+                    <option value="老屋翻新住宅設計">老屋翻新住宅設計</option>
+                    <option value="預售屋客變規劃">預售屋客變規劃</option>
+                    <option value="商業空間 / 辦公室設計">商業空間 / 辦公室設計</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- 基地位置與預計坪數 -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label for="space-area" class="block text-xs tracking-[0.16em] text-taupeLight/80 mb-2">
+                    基地位置與室內坪數
+                  </label>
+                  <input
+                    type="text"
+                    id="space-area"
+                    name="area"
+                    placeholder="例如：台北市大安區 / 約 40 坪"
+                    class="w-full bg-transparent border-b border-pureWhite/25 py-3 px-1 text-sm text-pureWhite placeholder:text-pureWhite/30 focus:outline-none focus:border-bronze transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label for="budget-range" class="block text-xs tracking-[0.16em] text-taupeLight/80 mb-2">
+                    預計工程預算區間
+                  </label>
+                  <select
+                    id="budget-range"
+                    name="budget"
+                    class="w-full bg-charcoal border-b border-pureWhite/25 py-3 px-1 text-sm text-pureWhite focus:outline-none focus:border-bronze transition-colors"
+                  >
+                    <option value="250 萬 – 400 萬">250 萬 – 400 萬</option>
+                    <option value="400 萬 – 650 萬">400 萬 – 650 萬</option>
+                    <option value="650 萬 – 1,000 萬">650 萬 – 1,000 萬</option>
+                    <option value="1,000 萬以上">1,000 萬以上</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- 需求簡述 -->
+              <div>
+                <label for="client-message" class="block text-xs tracking-[0.16em] text-taupeLight/80 mb-2">
+                  空間需求與風格偏好簡述
+                </label>
+                <textarea
+                  id="client-message"
+                  name="message"
+                  rows="3"
+                  placeholder="請簡述您的居住成員、期望入住時間，或喜歡的案例風格..."
+                  class="w-full bg-transparent border-b border-pureWhite/25 py-3 px-1 text-sm text-pureWhite placeholder:text-pureWhite/30 focus:outline-none focus:border-bronze transition-colors resize-none"
+                ></textarea>
+              </div>
+
+              <!-- 錯誤提示訊息 (替代 alert) -->
+              <p id="form-error" class="hidden text-xs text-[#E09F87] tracking-wider"></p>
+
+              <!-- 送出按鈕 -->
+              <div class="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <p class="text-[11px] text-taupeLight/55 leading-relaxed">
+                  送出即表示您同意事作制所依隱私權政策聯繫諮詢事宜。
+                </p>
+                <button
+                  type="submit"
+                  class="px-9 py-4 bg-bronze text-pureWhite text-xs tracking-[0.24em] uppercase rounded-sm hover:bg-bronzeDark transition-all duration-300 flex items-center justify-center gap-3 shrink-0"
+                >
+                  <span>送出預約諮詢</span>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </button>
+              </div>
+            </form>
+
+            <!-- 表單送出成功確認畫面 -->
+            <div id="form-success" class="hidden py-10 text-center space-y-5">
+              <div class="w-12 h-12 mx-auto border border-bronze text-bronze rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h4 class="text-xl font-light tracking-[0.18em] text-pureWhite">已收到您的預約諮詢</h4>
+              <p id="form-success-detail" class="text-xs sm:text-sm font-light text-taupeLight/80 max-w-md mx-auto leading-relaxed">
+                感謝您的信任，事作制所設計顧問將於 1–2 個工作日內與您聯繫，為您安排專屬空間諮詢時段。
+              </p>
+              <div class="pt-4">
+                <button
+                  type="button"
+                  onclick="resetConsultationForm()"
+                  class="px-6 py-2.5 border border-pureWhite/30 text-xs tracking-[0.2em] text-taupeLight hover:border-bronze hover:text-bronze rounded-sm transition-colors"
+                >
+                  填寫另一筆諮詢
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 頁尾版權宣告 (Footer Bottom Bar) -->
+      <footer class="mt-20 pt-8 border-t border-pureWhite/15 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-taupeLight/60 tracking-[0.16em]">
+        <div class="flex items-center gap-3">
+          <span class="text-pureWhite font-medium">事作制所</span>
+          <span>|</span>
+          <span class="font-serif uppercase">Assiduous Design</span>
+        </div>
+        <p class="text-center sm:text-left font-serif tracking-[0.14em]">
+          &copy; 2026 ASSIDUOUS DESIGN STUDIO. ALL RIGHTS RESERVED.
+        </p>
+        <a href="#hero" class="hover:text-bronze transition-colors flex items-center gap-1.5">
+          <span>TOP</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+          </svg>
+        </a>
+      </footer>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       8. 精選作品詳細資訊燈箱 (Interactive Project Detail Modal)
+       ===================================================================== -->
+  <div
+    id="project-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-project-code"
+    class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6 md:p-10 bg-charcoal/85 backdrop-blur-sm transition-opacity duration-300"
+  >
+    <!-- 點擊背景關閉區域 -->
+    <div id="modal-backdrop" class="absolute inset-0" onclick="closeProjectModal()"></div>
+
+    <!-- Modal 內容視窗 -->
+    <div class="relative z-10 bg-warmBg text-charcoal w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-sm border border-taupeLight shadow-2xl">
+      
+      <!-- 頂部關閉與案名列 -->
+      <div class="sticky top-0 z-20 bg-warmBg/95 backdrop-blur-md px-6 sm:px-8 py-4 border-b border-taupeLight flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span id="modal-category-badge" class="text-[11px] tracking-[0.2em] uppercase px-2.5 py-1 bg-pureWhite border border-taupeLight text-bronze rounded-sm">
+            RESIDENTIAL
+          </span>
+          <span id="modal-project-code" class="font-serif text-lg sm:text-xl tracking-[0.16em] font-medium text-charcoal">
+            AD CHEN
+          </span>
+        </div>
+
+        <button
+          type="button"
+          onclick="closeProjectModal()"
+          aria-label="關閉作品詳情視窗"
+          class="p-2 text-charcoal/70 hover:text-charcoal hover:bg-taupeLight/60 rounded-sm transition-colors"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal 主體雙欄結構 -->
+      <div class="grid grid-cols-1 lg:grid-cols-12">
+        
+        <!-- 左側：多視角實景圖庫 -->
+        <div class="lg:col-span-7 bg-charcoal p-4 sm:p-6 flex flex-col justify-between">
+          <div class="relative aspect-[4/3] w-full overflow-hidden rounded-sm bg-charcoal">
+            <img
+              id="modal-main-image"
+              src=""
+              alt="專案空間實景大圖"
+              class="w-full h-full object-cover transition-opacity duration-300"
+            />
+          </div>
+
+          <!-- 縮圖切換列 -->
+          <div id="modal-thumbnails" class="grid grid-cols-3 gap-3 mt-4">
+            <!-- 由 JS 動態生成 3 張視角縮圖 -->
+          </div>
+        </div>
+
+        <!-- 右側：空間設計理念與工程規格表 -->
+        <div class="lg:col-span-5 p-6 sm:p-8 md:p-10 flex flex-col justify-between bg-warmBg">
+          <div>
+            <p id="modal-subtitle" class="text-xs tracking-[0.22em] text-bronze mb-2">台北大安｜靜謐微光宅</p>
+            <h3 id="modal-title" class="font-serif text-3xl sm:text-4xl font-light tracking-[0.14em] text-charcoal mb-6">
+              AD CHEN
+            </h3>
+
+            <!-- 空間規格明細 -->
+            <div class="grid grid-cols-2 gap-4 py-5 border-y border-taupeLight text-xs tracking-wider mb-6">
+              <div>
+                <span class="block text-charcoal/50 mb-1">座落地點 / LOCATION</span>
+                <span id="modal-location" class="font-medium text-charcoal">台北市大安區</span>
+              </div>
+              <div>
+                <span class="block text-charcoal/50 mb-1">空間坪數 / AREA</span>
+                <span id="modal-area" class="font-medium text-charcoal">42 坪</span>
+              </div>
+              <div>
+                <span class="block text-charcoal/50 mb-1">完工年份 / YEAR</span>
+                <span id="modal-year" class="font-medium text-charcoal">2025</span>
+              </div>
+              <div>
+                <span class="block text-charcoal/50 mb-1">格局規劃 / LAYOUT</span>
+                <span id="modal-layout" class="font-medium text-charcoal">3 房 2 廳 2 衛</span>
+              </div>
+            </div>
+
+            <!-- 主要建材 -->
+            <div class="mb-6">
+              <span class="block text-xs text-charcoal/50 tracking-wider mb-2">主要材質 / MATERIALS</span>
+              <div id="modal-materials" class="flex flex-wrap gap-2">
+                <!-- 材質標籤 -->
+              </div>
+            </div>
+
+            <!-- 設計故事描述 -->
+            <div>
+              <span class="block text-xs text-charcoal/50 tracking-wider mb-2">空間叙事 / DESIGN CONCEPT</span>
+              <p id="modal-description" class="text-xs sm:text-sm font-light leading-[1.95] text-charcoal/85 tracking-wide">
+                空間設計說明文字...
+              </p>
+            </div>
+          </div>
+
+          <!-- 底部操作按鈕：帶入此案型預約諮詢 -->
+          <div class="mt-8 pt-6 border-t border-taupeLight">
+            <button
+              type="button"
+              id="modal-inquire-btn"
+              class="w-full py-3.5 bg-charcoal text-pureWhite text-xs tracking-[0.22em] rounded-sm hover:bg-bronze transition-colors duration-300"
+            >
+              以此案型風格預約諮詢
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       9. 全域微互動提示框 (Toast Notification — 替代 alert)
+       ===================================================================== -->
+  <div
+    id="toast"
+    role="status"
+    aria-live="polite"
+    class="fixed bottom-6 right-6 z-50 pointer-events-none opacity-0 translate-y-3 transition-all duration-300 bg-charcoal text-pureWhite border border-bronze/60 px-5 py-3.5 rounded-sm shadow-xl flex items-center gap-3 text-xs tracking-[0.14em]"
+  >
+    <span class="w-2 h-2 rounded-full bg-bronze"></span>
+    <span id="toast-message">訊息提示</span>
+  </div>
+
+  <!-- =====================================================================
+       JavaScript 互動邏輯：資料層、作品篩選、燈箱彈窗、導覽狀態與表單驗證
+       ===================================================================== -->
+  <script>
+    /**
+     * 1. 六大代表專案資料庫 (Selected Projects Dataset)
+     *    涵蓋 AD CHEN、AD LAI、AD OFFICE、AD NAKA、AD YAO、AD LEE
+     */
+    const PROJECTS_DATA = [
+      {
+        id: 'ad-chen',
+        code: 'AD CHEN',
+        title: '靜謐微光宅',
+        category: 'residential',
+        categoryLabel: '住宅空間 RESIDENTIAL',
+        location: '台北市大安區',
+        area: '42 坪',
+        year: '2025',
+        layout: '3 房 2 廳 2 衛',
+        materials: ['義大利藝術礦物塗料', '煙燻白橡木皮', '天然萊姆石', '2700K 線性漫射光'],
+        description:
+          '以「光影留白」為設計主軸，拆除原格局中阻隔採光的隔間牆，讓大面落地窗的自然光得以深入客餐廳腹地。電視主牆採用手工礦物塗料搭配溫潤煙燻橡木隱藏門片，將繁瑣收納化為純粹幾何立面，展現沈穩內斂的現代生活氣韻。',
+        images: [
+          'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=85',
+          'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85',
+          'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=85'
+        ]
+      },
+      {
+        id: 'ad-lai',
+        code: 'AD LAI',
+        title: '溫潤木質寓所',
+        category: 'residential',
+        categoryLabel: '住宅空間 RESIDENTIAL',
+        location: '台中市西屯區',
+        area: '55 坪',
+        year: '2025',
+        layout: '3+1 房 2 廳 3 衛',
+        materials: ['日本檜木實木格柵', '暖灰微水泥', '古銅拉絲不鏽鋼', '訂製亞麻軟裝'],
+        description:
+          '針對三代同堂與喜愛品茗閱讀的居住需求，我們以半穿透木格柵界定書房與起居室，保留視線交流卻不失各自靜謐。地坪採用無接縫暖灰微水泥延伸空間尺度，搭配溫潤木作與古銅金屬細節，營造經得起時間淬鍊的家族宅邸。',
+        images: [
+          'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85',
+          'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=85',
+          'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=85'
+        ]
+      },
+      {
+        id: 'ad-office',
+        code: 'AD OFFICE',
+        title: '極簡建築美學事務所',
+        category: 'commercial',
+        categoryLabel: '商業空間 COMMERCIAL',
+        location: '台北市信義區',
+        area: '68 坪',
+        year: '2024',
+        layout: '接待展廳 / 會議室 / 開放辦公區',
+        materials: ['清水模質感塗料', '陽極氧化古銅鋁板', '長虹玻璃', '可調光軌道洗牆系統'],
+        description:
+          '打破傳統辦公室冰冷制式的隔間思維，以長虹玻璃與弧形量體引導賓客動線。接待區結合材質展示長桌與美術館級別的洗牆燈光規劃，讓每一次客戶會議都成為沉浸式的空間體驗，展現品牌專業而從容的美學高度。',
+        images: [
+          'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=85',
+          'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=85',
+          'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=85'
+        ]
+      },
+      {
+        id: 'ad-naka',
+        code: 'AD NAKA',
+        title: '茶韻選物美學空間',
+        category: 'commercial',
+        categoryLabel: '商業空間 COMMERCIAL',
+        location: '台南市中西區',
+        area: '36 坪',
+        year: '2024',
+        layout: '茶席體驗區 / 器物展售區 / 吧台',
+        materials: ['手工夯土牆面', '老件胡桃木', '火山岩板', '低眩光重點投射燈'],
+        description:
+          '座落於台南歷史街區，保留老屋原有的高挑木桁架結構，融入當代極簡幾何展台。利用粗獷火山岩與細膩陶器形成材質張力，並透過精準光束聚焦於茶器輪廓，讓訪客在靜謐茶香中感受器物與空間的呼吸。',
+        images: [
+          'https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=1200&q=85',
+          'https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=1200&q=85',
+          'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=85'
+        ]
+      },
+      {
+        id: 'ad-yao',
+        code: 'AD YAO',
+        title: '留白光影私宅',
+        category: 'residential',
+        categoryLabel: '住宅空間 RESIDENTIAL',
+        location: '新竹縣竹北市',
+        area: '48 坪',
+        year: '2024',
+        layout: '3 房 2 廳 2 衛',
+        materials: ['米白珪藻土', '胡桃木實木貼皮', '消光烤漆鐵件', '全室無主燈智慧調光'],
+        description:
+          '為科技業屋主打造的減壓生活居所。全室捨棄傳統吊燈，改以天花弧形導角與嵌入式線性燈帶構築柔和光環境，並整合智慧情境模式，可隨晨昏與聚會需求一鍵切換光影氛圍，實現極致純粹的當代極簡美學。',
+        images: [
+          'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=85',
+          'https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?auto=format&fit=crop&w=1200&q=85',
+          'https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&w=1200&q=85'
+        ]
+      },
+      {
+        id: 'ad-lee',
+        code: 'AD LEE',
+        title: '沉穩石韻居所',
+        category: 'residential',
+        categoryLabel: '住宅空間 RESIDENTIAL',
+        location: '高雄市鼓山區',
+        area: '60 坪',
+        year: '2023',
+        layout: '4 房 2 廳 3 衛',
+        materials: ['銀狐天然大理石', '深焙胡桃木', '灰玻金屬拉門', '進口皮革繃布'],
+        description:
+          '以大地色系與天然石材肌理為空間定調，客廳半高石材矮牆兼顧雙面收納與視線穿透感。中島餐廚區採用霧面石紋檯面銜接實木餐桌，滿足屋主款待親友的社交需求，並達成 95% 以上的設計圖面高還原度。',
+        images: [
+          'https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=1200&q=85',
+          'https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=1200&q=85',
+          'https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=1200&q=85'
+        ]
+      }
+    ];
+
+    let currentFilter = 'all';
+    let currentModalProject = null;
+
+    /**
+     * 2. 渲染精選作品網格 (Render Projects Grid)
+     */
+    function renderProjects(filter = 'all') {
+      const grid = document.getElementById('projects-grid');
+      if (!grid) return;
+
+      const filtered = filter === 'all'
+        ? PROJECTS_DATA
+        : PROJECTS_DATA.filter((item) => item.category === filter);
+
+      grid.innerHTML = filtered
+        .map(
+          (project) => `
+          <article
+            onclick="openProjectModal('${project.id}')"
+            class="group cursor-pointer flex flex-col bg-pureWhite border border-taupeLight rounded-sm overflow-hidden hover:border-bronze transition-all duration-500"
+          >
+            <!-- 專案攝影封面 -->
+            <div class="relative aspect-[4/3] w-full overflow-hidden bg-taupeLight">
+              <img
+                src="${project.images[0]}"
+                onerror="this.onerror=null;this.src='https://placehold.co/800x600/EAE7E1/1F1F1F?text=${encodeURIComponent(project.code)}';"
+                alt="${project.code} - ${project.title}"
+                loading="lazy"
+                class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+              <!-- 懸停微遮罩與檢視提示 -->
+              <div class="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/30 transition-colors duration-500 flex items-end justify-between p-5">
+                <span class="opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 px-3 py-1.5 bg-pureWhite/95 text-charcoal text-[11px] tracking-[0.2em] rounded-sm">
+                  VIEW PROJECT &rarr;
+                </span>
+              </div>
+            </div>
+
+            <!-- 專案文字資訊 -->
+            <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between text-[11px] tracking-[0.18em] text-bronze mb-2">
+                  <span class="font-serif uppercase">${project.categoryLabel}</span>
+                  <span class="font-serif text-charcoal/50">${project.year}</span>
+                </div>
+                <div class="flex items-baseline justify-between gap-2">
+                  <h3 class="font-serif text-2xl font-normal tracking-[0.14em] text-charcoal group-hover:text-bronze transition-colors">
+                    ${project.code}
+                  </h3>
+                  <span class="text-sm font-light tracking-[0.12em] text-charcoal/80">
+                    ${project.title}
+                  </span>
+                </div>
+              </div>
+
+              <div class="mt-5 pt-4 border-t border-taupeLight/80 flex items-center justify-between text-xs text-charcoal/60 tracking-wider">
+                <span>${project.location}</span>
+                <span>${project.area}</span>
+              </div>
+            </div>
+          </article>
+        `
+        )
+        .join('');
+    }
+
+    /**
+     * 3. 作品分類篩選切換 (Filter Projects & Sync Active Tab State)
+     */
+    function filterProjects(category) {
+      currentFilter = category;
+      renderProjects(category);
+
+      // 更新篩選按鈕外觀狀態
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach((btn) => {
+        const isMatch = btn.getAttribute('data-filter') === category;
+        if (isMatch) {
+          btn.classList.remove('border-taupeLight', 'bg-warmBg', 'text-charcoal');
+          btn.classList.add('border-charcoal', 'bg-charcoal', 'text-pureWhite');
+        } else {
+          btn.classList.remove('border-charcoal', 'bg-charcoal', 'text-pureWhite');
+          btn.classList.add('border-taupeLight', 'bg-warmBg', 'text-charcoal');
+        }
+      });
+    }
+
+    /**
+     * 4. 從頂部導覽下拉選單跳轉並套用作品分類篩選
+     */
+    function navigateToProjectFilter(category) {
+      filterProjects(category);
+      const section = document.getElementById('projects');
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    /**
+     * 5. 開啟專案詳細資訊 Modal (Project Detail Modal)
+     */
+    function openProjectModal(projectId) {
+      const project = PROJECTS_DATA.find((p) => p.id === projectId);
+      if (!project) return;
+      currentModalProject = project;
+
+      // 填入基本資訊
+      document.getElementById('modal-category-badge').textContent = project.categoryLabel;
+      document.getElementById('modal-project-code').textContent = project.code;
+      document.getElementById('modal-subtitle').textContent = `${project.location}｜${project.title}`;
+      document.getElementById('modal-title').textContent = project.code;
+      document.getElementById('modal-location').textContent = project.location;
+      document.getElementById('modal-area').textContent = project.area;
+      document.getElementById('modal-year').textContent = project.year;
+      document.getElementById('modal-layout').textContent = project.layout;
+      document.getElementById('modal-description').textContent = project.description;
+
+      // 填入建材標籤
+      const materialsContainer = document.getElementById('modal-materials');
+      materialsContainer.innerHTML = project.materials
+        .map(
+          (mat) =>
+            `<span class="text-[11px] tracking-wider px-3 py-1 bg-pureWhite border border-taupeLight text-charcoal/80 rounded-sm">${mat}</span>`
+        )
+        .join('');
+
+      // 設定主圖與縮圖切換
+      setModalMainImage(project.images[0], 0);
+      const thumbsContainer = document.getElementById('modal-thumbnails');
+      thumbsContainer.innerHTML = project.images
+        .map(
+          (imgUrl, idx) => `
+          <button
+            type="button"
+            onclick="setModalMainImage('${imgUrl}', ${idx})"
+            class="modal-thumb relative aspect-[4/3] overflow-hidden rounded-sm border-2 ${
+              idx === 0 ? 'border-bronze opacity-100' : 'border-transparent opacity-60 hover:opacity-100'
+            } transition-all"
+          >
+            <img
+              src="${imgUrl}"
+              onerror="this.onerror=null;this.src='https://placehold.co/400x300/1F1F1F/8C7A6B?text=VIEW+${idx + 1}';"
+              alt="${project.code} 視角 ${idx + 1}"
+              class="w-full h-full object-cover"
+            />
+          </button>
+        `
+        )
+        .join('');
+
+      // 綁定「以此案型風格預約諮詢」按鈕
+      const inquireBtn = document.getElementById('modal-inquire-btn');
+      inquireBtn.onclick = function () {
+        closeProjectModal();
+        const messageField = document.getElementById('client-message');
+        const spaceTypeField = document.getElementById('space-type');
+        if (spaceTypeField) {
+          spaceTypeField.value =
+            project.category === 'commercial' ? '商業空間 / 辦公室設計' : '新成屋住宅設計';
+        }
+        if (messageField) {
+          messageField.value = `您好，我很喜歡貴司作品「${project.code}（${project.title}）」的空間氛圍與材質搭配，希望能預約諮詢類似風格的設計規劃。`;
+        }
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        showToast(`已為您帶入「${project.code}」案型諮詢偏好`);
+      };
+
+      // 顯示 Modal 並鎖定背景捲動
+      const modal = document.getElementById('project-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function setModalMainImage(url, activeIndex) {
+      const mainImg = document.getElementById('modal-main-image');
+      if (mainImg) {
+        mainImg.src = url;
+        mainImg.onerror = function () {
+          this.onerror = null;
+          this.src = 'https://placehold.co/1200x900/1F1F1F/8C7A6B?text=ASSIDUOUS+DESIGN';
+        };
+      }
+      const thumbs = document.querySelectorAll('.modal-thumb');
+      thumbs.forEach((thumb, idx) => {
+        if (idx === activeIndex) {
+          thumb.classList.remove('border-transparent', 'opacity-60');
+          thumb.classList.add('border-bronze', 'opacity-100');
+        } else {
+          thumb.classList.remove('border-bronze', 'opacity-100');
+          thumb.classList.add('border-transparent', 'opacity-60');
+        }
+      });
+    }
+
+    function closeProjectModal() {
+      const modal = document.getElementById('project-modal');
+      if (!modal) return;
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    /**
+     * 6. 頂部導覽列捲動變色與首屏微視差 (Sticky Header & Parallax)
+     */
+    function handleScrollEffects() {
+      const navbar = document.getElementById('navbar');
+      const heroParallax = document.getElementById('hero-parallax');
+      const scrollY = window.scrollY;
+
+      if (navbar) {
+        if (scrollY > 60) {
+          navbar.classList.remove('border-pureWhite/15', 'text-pureWhite');
+          navbar.classList.add(
+            'bg-warmBg/95',
+            'backdrop-blur-md',
+            'border-taupeLight',
+            'text-charcoal',
+            'shadow-sm'
+          );
+        } else {
+          navbar.classList.add('border-pureWhite/15', 'text-pureWhite');
+          navbar.classList.remove(
+            'bg-warmBg/95',
+            'backdrop-blur-md',
+            'border-taupeLight',
+            'text-charcoal',
+            'shadow-sm'
+          );
+        }
+      }
+
+      // 首屏背景微視差 (仅在首屏範圍內運算以保持流暢)
+      if (heroParallax && scrollY < window.innerHeight) {
+        heroParallax.style.transform = `translateY(${scrollY * 0.25}px)`;
+      }
+    }
+
+    /**
+     * 7. 手機版漢堡選單切換 (Mobile Menu Toggle)
+     */
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let isMobileMenuOpen = false;
+
+    function toggleMobileMenu() {
+      isMobileMenuOpen = !isMobileMenuOpen;
+      const bar1 = document.getElementById('bar-1');
+      const bar2 = document.getElementById('bar-2');
+      const bar3 = document.getElementById('bar-3');
+
+      if (isMobileMenuOpen) {
+        mobileMenu.classList.remove('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        bar1.style.transform = 'rotate(-45deg) translate(-2px, 0px)';
+        bar2.style.opacity = '0';
+        bar3.style.transform = 'rotate(45deg) translate(-2px, 0px)';
+      } else {
+        closeMobileMenu();
+      }
+    }
+
+    function closeMobileMenu() {
+      isMobileMenuOpen = false;
+      const bar1 = document.getElementById('bar-1');
+      const bar2 = document.getElementById('bar-2');
+      const bar3 = document.getElementById('bar-3');
+      if (mobileMenu) mobileMenu.classList.add('hidden');
+      if (mobileMenuBtn) mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      if (bar1) bar1.style.transform = '';
+      if (bar2) bar2.style.opacity = '1';
+      if (bar3) bar3.style.transform = '';
+    }
+
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    }
+
+    /**
+     * 8. 互動式線上預約表單驗證與送出處理 (Consultation Form Handling)
+     */
+    const consultationForm = document.getElementById('consultation-form');
+    if (consultationForm) {
+      consultationForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const name = document.getElementById('client-name').value.trim();
+        const phone = document.getElementById('client-phone').value.trim();
+        const email = document.getElementById('client-email').value.trim();
+        const spaceType = document.getElementById('space-type').value;
+        const errorEl = document.getElementById('form-error');
+
+        if (!name || !phone || !email) {
+          errorEl.textContent = '請完整填寫您的稱呼、聯絡電話與電子信箱，以便設計師與您聯繫。';
+          errorEl.classList.remove('hidden');
+          return;
+        }
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+          errorEl.textContent = '請輸入有效的電子信箱格式（例如 name@example.com）。';
+          errorEl.classList.remove('hidden');
+          return;
+        }
+
+        errorEl.classList.add('hidden');
+
+        // 切換至預約成功確認狀態
+        consultationForm.classList.add('hidden');
+        const successBox = document.getElementById('form-success');
+        const successDetail = document.getElementById('form-success-detail');
+        successDetail.textContent = `感謝 ${name} 的預約，我們已收到您針對「${spaceType}」的諮詢需求，設計顧問將於 1–2 個工作日內透過電話或信箱（${email}）與您聯繫。`;
+        successBox.classList.remove('hidden');
+        showToast('線上預約諮詢已成功送出');
+      });
+    }
+
+    function resetConsultationForm() {
+      const form = document.getElementById('consultation-form');
+      const successBox = document.getElementById('form-success');
+      if (form) {
+        form.reset();
+        form.classList.remove('hidden');
+      }
+      if (successBox) {
+        successBox.classList.add('hidden');
+      }
+    }
+
+    /**
+     * 9. 剪貼簿複製功能 (使用 execCommand 相容 iFrame 環境) 與 Toast 提示
+     */
+    function copyTextToClipboard(text, label) {
+      try {
+        const tempInput = document.createElement('textarea');
+        tempInput.value = text;
+        tempInput.setAttribute('readonly', '');
+        tempInput.style.position = 'absolute';
+        tempInput.style.left = '-9999px';
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        showToast(`已複製${label}：${text}`);
+      } catch (err) {
+        showToast(`${label}：${text}`);
+      }
+    }
+
+    let toastTimeout = null;
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      if (!toast || !toastMsg) return;
+
+      toastMsg.textContent = message;
+      toast.classList.remove('opacity-0', 'translate-y-3');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-3');
+        toast.classList.remove('opacity-100', 'translate-y-0');
+      }, 3200);
+    }
+
+    /**
+     * 10. 捲動漸顯動畫觀察器 (Scroll Reveal IntersectionObserver)
+     */
+    function initScrollReveal() {
+      const revealItems = document.querySelectorAll('.reveal-item');
+      revealItems.forEach((el) => {
+        el.classList.add('opacity-0', 'translate-y-6', 'transition-all', 'duration-1000', 'ease-out');
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.remove('opacity-0', 'translate-y-6');
+              entry.target.classList.add('opacity-100', 'translate-y-0');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      );
+
+      revealItems.forEach((el) => observer.observe(el));
+    }
+
+    // 鍵盤 Escape 關閉燈箱與手機選單
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeProjectModal();
+        closeMobileMenu();
+      }
+    });
+
+    // 初始化頁面互動
+    window.addEventListener('scroll', handleScrollEffects, { passive: true });
+    window.addEventListener('DOMContentLoaded', () => {
+      renderProjects('all');
+      handleScrollEffects();
+      initScrollReveal();
+    });
+  </script>
+</body>
+</html>
